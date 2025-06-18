@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAINT | Детектор читов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Dela Gothic One', cursive;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2, #80deea, #4dd0e1, #26c6da);
+            color: #01579b;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: default;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .wave {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid rgba(1, 87, 155, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            font-size: 28px;
+            background: linear-gradient(90deg, #00796b, #00acc1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav ul li {
+            margin-left: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Dela Gothic One', cursive;
+            font-size: 16px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #00796b, #00acc1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 121, 107, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 121, 107, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.7);
+            color: #00796b;
+            border: 1px solid rgba(1, 87, 155, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #00796b, #00acc1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #006064;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(1, 87, 155, 0.1);
+            color: #006064;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-top: 20px;
+            color: #00796b;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(90deg, #00796b, #00acc1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            margin: 60px 0;
+            border: 1px solid rgba(1, 87, 155, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #00796b;
+        }
+        
+        .cta-section p {
+            color: #006064;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(1, 87, 155, 0.1);
+            margin-top: 60px;
+            color: #006064;
+            position: relative;
+            z-index: 2;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="cursor-wave"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">SAINT</div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="btn btn-secondary">Главная</a></li>
+                    <li><a href="#features" class="btn btn-secondary">Возможности</a></li>
+                    <li><a href="#download" class="btn btn-primary">Скачать</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section id="home" class="hero">
+            <h1>SAINT - Детектор читов</h1>
+            <p>Профессиональное решение для обнаружения читерского ПО на компьютерах игроков</p>
+            <div class="btn-group">
+                <a href="#download" class="btn btn-primary">Скачать сейчас</a>
+            </div>
+        </section>
+        
+        <section id="features" class="features">
+            <div class="feature-card">
+                <div class="feature-icon">1</div>
+                <h3>Анализ процессов</h3>
+                <p>Обнаружение читерских программ в памяти компьютера</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">2</div>
+                <h3>Сетевой мониторинг</h3>
+                <p>Выявление подозрительного сетевого трафика</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">3</div>
+                <h3>Подробные отчеты</h3>
+                <p>Формирование доказательной базы для модераторов</p>
+            </div>
+        </section>
+        
+        <section id="download" class="cta-section">
+            <h2>Скачайте SAINT бесплатно</h2>
+            <p>Версия 2.5.3 | Windows 10/11 | 64-bit</p>
+            <div class="btn-group">
+                <a href="https://github.com/Dandelonnn/Saint/raw/main/saint.exe" class="btn btn-primary" download="SAINT_Anticheat.exe">Скачать (7.28 MB)</a>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© 2025 SAINT - Программа для обнаружения читов</p>
+            <div class="btn-group">
+                <a href="https://discord.gg/ваша_ссылка" class="btn btn-secondary" target="_blank">Discord сервер</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Эффект волны за курсором
+        const cursorWave = document.getElementById('cursor-wave');
+        const waves = [];
+        
+        document.addEventListener('mousemove', (e) => {
+            // Создаем новую волну
+            const wave = document.createElement('div');
+            wave.className = 'wave';
+            wave.style.left = `${e.clientX}px`;
+            wave.style.top = `${e.clientY}px`;
+            wave.style.opacity = '0.5';
+            document.body.appendChild(wave);
+            
+            // Анимация волны
+            setTimeout(() => {
+                wave.style.transform = `translate(-50%, -50%) scale(2)`;
+                wave.style.opacity = '0';
+            }, 10);
+            
+            // Удаление волны после анимации
+            setTimeout(() => {
+                wave.remove();
+            }, 1000);
+            
+            // Ограничиваем количество волн
+            waves.push(wave);
+            if (waves.length > 5) {
+                const oldWave = waves.shift();
+                if (oldWave) oldWave.remove();
+            }
+        });
+        
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
